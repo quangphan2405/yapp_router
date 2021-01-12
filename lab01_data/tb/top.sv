@@ -22,11 +22,17 @@ module top;
          
    initial begin : TEST
       $display("Generate 5 random packets");      
-      repeat (5) begin : GENERATE
-	 p1 = new("p1");
+      for (int i = 0; i < 5; i++) begin : GENERATE
+	 p1 = new( $sformatf("packet_%0d", i) );
 	 ok = p1.randomize();
 	 p1.print();
       end
+
+      $display("\nExperiment with UVM print method:");
+      $display("*** TREE printer ***");
+      p1.print(uvm_default_tree_printer);
+      $display("\n*** LINE printer ***");
+      p1.print(uvm_default_line_printer);
       
       $display("\nExperiment with UVM copy");
       p2 = new("p2");      
@@ -37,12 +43,13 @@ module top;
       $cast(p3, p1.clone());
       p3.print();
 
-      $display("\nExperiment with UVM print method:");
-      $display("*** TREE printer ***");
-      p3.print(uvm_default_tree_printer);
-      $display("\n*** LINE printer ***");
-      p3.print(uvm_default_line_printer);
-      
+      $display("\nExperiment with UVM compare");
+      $display("*** Compare 2 matching packets ***");
+      ok = p2.compare(p1);
+      $display("\n*** Compare 2 not-matching packets *** ");
+      ok = p1.randomize();
+      ok = p2.compare(p1);
+            
       $display("\nTEST COMPLETE");
       $finish;      
    end // block: TEST
