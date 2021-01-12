@@ -36,7 +36,7 @@ class yapp_packet extends uvm_sequence_item;
 
   // Define packet constraints
    constraint valid_addr   { addr != 3; }
-   constraint valid_length { length > 0 && length < 64 }
+   constraint valid_length { length > 0 && length < 64; }
    constraint payload_size { payload.size() == length; }
    constraint parity_dist  { parity_type dist { GOOD_PARITY:=5, BAD_PARITY:=1 }; }
    constraint short_delay  { packet_delay > 0 && packet_delay < 21; }
@@ -55,7 +55,9 @@ class yapp_packet extends uvm_sequence_item;
    endfunction : calc_parity
 
    function void set_parity();
-      parity = (parity_type == GOOD_PARITY) ? : calc_parity() : ~parity;
+      parity = calc_parity();
+      if ( parity_type == BAD_PARITY )
+	parity = ~parity;      
    endfunction : set_parity
 
    function void post_randomize();
