@@ -19,3 +19,14 @@ class base_test extends uvm_test;
    endfunction : end_of_elaboration_phase
 
 endclass : base_test
+
+
+class test2 extends base_test;
+
+   `uvm_component_utils(test2)
+
+   function new(string name, uvm_component parent);
+      super.new(name, parent);
+   endfunction : new
+
+endclass : test2
