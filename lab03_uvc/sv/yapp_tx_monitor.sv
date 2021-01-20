@@ -6,12 +6,12 @@ class yapp_tx_monitor extends uvm_monitor;
       super.new(name, parent);
    endfunction : new
 
-   virtual task run_phase(uvm_phase phase);
-      `uvm_info("INFO", "You are in the monitor!", UVM_LOW)
-   endtask : run_phase
-
    function void start_of_simulation_phase(uvm_phase phase);
       `uvm_info(get_type_name(), {"Simulation starts for: ", get_full_name()}, UVM_HIGH)
    endfunction : start_of_simulation_phase
+
+   virtual task run_phase(uvm_phase phase);
+      `uvm_info("INFO", "You are in the monitor!", UVM_LOW)
+   endtask : run_phase   
 
 endclass : yapp_tx_monitor
