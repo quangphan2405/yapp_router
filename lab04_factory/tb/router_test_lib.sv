@@ -13,7 +13,7 @@ class base_test extends uvm_test;
       `uvm_info("BUILD", "Build phase of test is being executed", UVM_HIGH)
       uvm_config_wrapper::set(this, "tb.yapp.tx_agent.sequencer.run_phase",
 			      "default_sequence", yapp_5_packets::get_type());
-      tb = new("tb", this);
+      tb = router_tb::type_id::create("tb", this);
    endfunction : build_phase
 
    function void end_of_elaboration_phase(uvm_phase phase);

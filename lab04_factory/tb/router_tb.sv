@@ -11,7 +11,7 @@ class router_tb extends uvm_env;
    virtual function void build_phase(uvm_phase phase);
       super.build_phase(phase);
       `uvm_info("BUILD", "Build phase of tb is being executed", UVM_HIGH)
-      yapp = new("yapp", this);
+      yapp = yapp_env::type_id::create("yapp", this);
    endfunction : build_phase
 
    function void start_of_simulation_phase(uvm_phase phase);
