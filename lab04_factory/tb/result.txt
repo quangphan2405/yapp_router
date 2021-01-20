@@ -1,0 +1,40 @@
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(216) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test base_test...
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# ----------------------------------------------------------------------
+# Name                         Type                     Size  Value     
+# ----------------------------------------------------------------------
+# uvm_test_top                 base_test                -     @466      
+#   tb                         router_tb                -     @473      
+#     yapp                     yapp_env                 -     @480      
+#       agent                  yapp_tx_agent            -     @487      
+#         driver               yapp_tx_driver           -     @504      
+#           rsp_port           uvm_analysis_port        -     @519      
+#           seq_item_port      uvm_seq_item_pull_port   -     @511      
+#         monitor              yapp_tx_monitor          -     @497      
+#         sequencer            yapp_tx_sequencer        -     @527      
+#           rsp_export         uvm_analysis_export      -     @534      
+#           seq_item_export    uvm_seq_item_pull_imp    -     @628      
+#           arbitration_queue  array                    0     -         
+#           lock_queue         array                    0     -         
+#           num_last_reqs      integral                 32    'd1       
+#           num_last_rsps      integral                 32    'd1       
+#         is_active            uvm_active_passive_enum  1     UVM_ACTIVE
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO lab03_uvc/sv/yapp_tx_monitor.sv(10) @ 0: uvm_test_top.tb.yapp.agent.monitor [INFO] You are in the monitor!
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :    5
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [INFO]     1
+# [Questa UVM]     2
+# [RNTST]     1
+# [UVMTOP]     1
+

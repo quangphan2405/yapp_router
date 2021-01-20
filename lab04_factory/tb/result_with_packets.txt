@@ -1,0 +1,191 @@
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(216) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test base_test...
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# ----------------------------------------------------------------------
+# Name                         Type                     Size  Value     
+# ----------------------------------------------------------------------
+# uvm_test_top                 base_test                -     @466      
+#   tb                         router_tb                -     @477      
+#     yapp                     yapp_env                 -     @484      
+#       tx_agent               yapp_tx_agent            -     @491      
+#         driver               yapp_tx_driver           -     @508      
+#           rsp_port           uvm_analysis_port        -     @523      
+#           seq_item_port      uvm_seq_item_pull_port   -     @515      
+#         monitor              yapp_tx_monitor          -     @501      
+#         sequencer            yapp_tx_sequencer        -     @531      
+#           rsp_export         uvm_analysis_export      -     @538      
+#           seq_item_export    uvm_seq_item_pull_imp    -     @632      
+#           arbitration_queue  array                    0     -         
+#           lock_queue         array                    0     -         
+#           num_last_reqs      integral                 32    'd1       
+#           num_last_rsps      integral                 32    'd1       
+#         is_active            uvm_active_passive_enum  1     UVM_ACTIVE
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO lab03_uvc/sv/yapp_tx_monitor.sv(10) @ 0: uvm_test_top.tb.yapp.tx_agent.monitor [INFO] You are in the monitor!
+# UVM_INFO lab03_uvc/sv/yapp_tx_seqs.sv(37) @ 0: uvm_test_top.tb.yapp.tx_agent.sequencer@@yapp_5_packets [yapp_5_packets] raise objection
+# UVM_INFO lab03_uvc/sv/yapp_tx_seqs.sv(81) @ 0: uvm_test_top.tb.yapp.tx_agent.sequencer@@yapp_5_packets [yapp_5_packets] Executing yapp_5_packets sequence
+# UVM_INFO lab03_uvc/sv/yapp_tx_driver.sv(20) @ 0: uvm_test_top.tb.yapp.tx_agent.driver [SEND] Packet is 
+# ----------------------------------------------------------------------------------------------------------
+# Name                           Type           Size  Value                                                 
+# ----------------------------------------------------------------------------------------------------------
+# req                            yapp_packet    -     @652                                                  
+#   addr                         integral       2     'h0                                                   
+#   length                       integral       6     'h3f                                                  
+#   payload                      da(integral)   63    -                                                     
+#     [0]                        integral       8     'h82                                                  
+#     [1]                        integral       8     'h2f                                                  
+#     [2]                        integral       8     'hd3                                                  
+#     [3]                        integral       8     'hf2                                                  
+#     [4]                        integral       8     'h30                                                  
+#     ...                        ...            ...   ...                                                   
+#     [58]                       integral       8     'hf7                                                  
+#     [59]                       integral       8     'hbc                                                  
+#     [60]                       integral       8     'h3                                                   
+#     [61]                       integral       8     'hb3                                                  
+#     [62]                       integral       8     'h38                                                  
+#   parity                       integral       8     'b11110110                                            
+#   parity_type                  parity_type_e  1     BAD_PARITY                                            
+#   packet_delay                 integral       32    'h2                                                   
+#   begin_time                   time           64    0                                                     
+#   depth                        int            32    'd2                                                   
+#   parent sequence (name)       string         14    yapp_5_packets                                        
+#   parent sequence (full name)  string         54    uvm_test_top.tb.yapp.tx_agent.sequencer.yapp_5_packets
+#   sequencer                    string         39    uvm_test_top.tb.yapp.tx_agent.sequencer               
+# ----------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO lab03_uvc/sv/yapp_tx_driver.sv(20) @ 10: uvm_test_top.tb.yapp.tx_agent.driver [SEND] Packet is 
+# ----------------------------------------------------------------------------------------------------------
+# Name                           Type           Size  Value                                                 
+# ----------------------------------------------------------------------------------------------------------
+# req                            yapp_packet    -     @681                                                  
+#   addr                         integral       2     'h1                                                   
+#   length                       integral       6     'h2f                                                  
+#   payload                      da(integral)   47    -                                                     
+#     [0]                        integral       8     'h8f                                                  
+#     [1]                        integral       8     'h3                                                   
+#     [2]                        integral       8     'h8                                                   
+#     [3]                        integral       8     'h2e                                                  
+#     [4]                        integral       8     'h8e                                                  
+#     ...                        ...            ...   ...                                                   
+#     [42]                       integral       8     'h64                                                  
+#     [43]                       integral       8     'ha4                                                  
+#     [44]                       integral       8     'h8f                                                  
+#     [45]                       integral       8     'he1                                                  
+#     [46]                       integral       8     'ha8                                                  
+#   parity                       integral       8     'b101                                                 
+#   parity_type                  parity_type_e  1     GOOD_PARITY                                           
+#   packet_delay                 integral       32    'h1                                                   
+#   begin_time                   time           64    10                                                    
+#   depth                        int            32    'd2                                                   
+#   parent sequence (name)       string         14    yapp_5_packets                                        
+#   parent sequence (full name)  string         54    uvm_test_top.tb.yapp.tx_agent.sequencer.yapp_5_packets
+#   sequencer                    string         39    uvm_test_top.tb.yapp.tx_agent.sequencer               
+# ----------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO lab03_uvc/sv/yapp_tx_driver.sv(20) @ 20: uvm_test_top.tb.yapp.tx_agent.driver [SEND] Packet is 
+# ----------------------------------------------------------------------------------------------------------
+# Name                           Type           Size  Value                                                 
+# ----------------------------------------------------------------------------------------------------------
+# req                            yapp_packet    -     @685                                                  
+#   addr                         integral       2     'h0                                                   
+#   length                       integral       6     'h30                                                  
+#   payload                      da(integral)   48    -                                                     
+#     [0]                        integral       8     'h52                                                  
+#     [1]                        integral       8     'h46                                                  
+#     [2]                        integral       8     'h26                                                  
+#     [3]                        integral       8     'h9a                                                  
+#     [4]                        integral       8     'h97                                                  
+#     ...                        ...            ...   ...                                                   
+#     [43]                       integral       8     'hae                                                  
+#     [44]                       integral       8     'hd0                                                  
+#     [45]                       integral       8     'hc2                                                  
+#     [46]                       integral       8     'hbe                                                  
+#     [47]                       integral       8     'hce                                                  
+#   parity                       integral       8     'b1001010                                             
+#   parity_type                  parity_type_e  1     GOOD_PARITY                                           
+#   packet_delay                 integral       32    'h9                                                   
+#   begin_time                   time           64    20                                                    
+#   depth                        int            32    'd2                                                   
+#   parent sequence (name)       string         14    yapp_5_packets                                        
+#   parent sequence (full name)  string         54    uvm_test_top.tb.yapp.tx_agent.sequencer.yapp_5_packets
+#   sequencer                    string         39    uvm_test_top.tb.yapp.tx_agent.sequencer               
+# ----------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO lab03_uvc/sv/yapp_tx_driver.sv(20) @ 30: uvm_test_top.tb.yapp.tx_agent.driver [SEND] Packet is 
+# ----------------------------------------------------------------------------------------------------------
+# Name                           Type           Size  Value                                                 
+# ----------------------------------------------------------------------------------------------------------
+# req                            yapp_packet    -     @689                                                  
+#   addr                         integral       2     'h0                                                   
+#   length                       integral       6     'h18                                                  
+#   payload                      da(integral)   24    -                                                     
+#     [0]                        integral       8     'h17                                                  
+#     [1]                        integral       8     'h6c                                                  
+#     [2]                        integral       8     'hac                                                  
+#     [3]                        integral       8     'hc3                                                  
+#     [4]                        integral       8     'hbe                                                  
+#     ...                        ...            ...   ...                                                   
+#     [19]                       integral       8     'he7                                                  
+#     [20]                       integral       8     'h2a                                                  
+#     [21]                       integral       8     'h4c                                                  
+#     [22]                       integral       8     'hfb                                                  
+#     [23]                       integral       8     'hf6                                                  
+#   parity                       integral       8     'b1101                                                
+#   parity_type                  parity_type_e  1     GOOD_PARITY                                           
+#   packet_delay                 integral       32    'h9                                                   
+#   begin_time                   time           64    30                                                    
+#   depth                        int            32    'd2                                                   
+#   parent sequence (name)       string         14    yapp_5_packets                                        
+#   parent sequence (full name)  string         54    uvm_test_top.tb.yapp.tx_agent.sequencer.yapp_5_packets
+#   sequencer                    string         39    uvm_test_top.tb.yapp.tx_agent.sequencer               
+# ----------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO lab03_uvc/sv/yapp_tx_driver.sv(20) @ 40: uvm_test_top.tb.yapp.tx_agent.driver [SEND] Packet is 
+# ----------------------------------------------------------------------------------------------------------
+# Name                           Type           Size  Value                                                 
+# ----------------------------------------------------------------------------------------------------------
+# req                            yapp_packet    -     @693                                                  
+#   addr                         integral       2     'h2                                                   
+#   length                       integral       6     'h2f                                                  
+#   payload                      da(integral)   47    -                                                     
+#     [0]                        integral       8     'hbb                                                  
+#     [1]                        integral       8     'h21                                                  
+#     [2]                        integral       8     'h16                                                  
+#     [3]                        integral       8     'h20                                                  
+#     [4]                        integral       8     'h77                                                  
+#     ...                        ...            ...   ...                                                   
+#     [42]                       integral       8     'h1f                                                  
+#     [43]                       integral       8     'h76                                                  
+#     [44]                       integral       8     'h50                                                  
+#     [45]                       integral       8     'hd5                                                  
+#     [46]                       integral       8     'hc8                                                  
+#   parity                       integral       8     'b1101100                                             
+#   parity_type                  parity_type_e  1     GOOD_PARITY                                           
+#   packet_delay                 integral       32    'hd                                                   
+#   begin_time                   time           64    40                                                    
+#   depth                        int            32    'd2                                                   
+#   parent sequence (name)       string         14    yapp_5_packets                                        
+#   parent sequence (full name)  string         54    uvm_test_top.tb.yapp.tx_agent.sequencer.yapp_5_packets
+#   sequencer                    string         39    uvm_test_top.tb.yapp.tx_agent.sequencer               
+# ----------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO lab03_uvc/sv/yapp_tx_seqs.sv(51) @ 50: uvm_test_top.tb.yapp.tx_agent.sequencer@@yapp_5_packets [yapp_5_packets] drop objection
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 50: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   14
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [INFO]     1
+# [Questa UVM]     2
+# [RNTST]     1
+# [SEND]     5
+# [TEST_DONE]     1
+# [UVMTOP]     1
+# [yapp_5_packets]     3
