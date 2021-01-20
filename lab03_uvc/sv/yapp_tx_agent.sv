@@ -1,8 +1,4 @@
-class yapp_tx_agent extends uvm_agent;
-
-   function new(string name, uvm_component parent);
-      super.new(name, parent);
-   endfunction : new
+class yapp_tx_agent extends uvm_agent;   
 
    yapp_tx_monitor monitor;
    yapp_tx_driver driver;
@@ -12,9 +8,12 @@ class yapp_tx_agent extends uvm_agent;
       `uvm_field_enum(uvm_active_passive_enum, is_active, UVM_ALL_ON)
    `uvm_component_utils_end
 
-   virtual function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
-      
+   function new(string name, uvm_component parent);
+      super.new(name, parent);
+   endfunction : new
+
+   function void build_phase(uvm_phase phase);
+      super.build_phase(phase);      
       monitor = new("monitor", this);
       if ( is_active == UVM_ACTIVE ) begin
 	driver = new("driver", this);
