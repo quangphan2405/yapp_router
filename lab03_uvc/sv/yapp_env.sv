@@ -13,4 +13,8 @@ class yapp_env extends uvm_env;
       tx_agent = new("tx_agent", this);
    endfunction : build_phase
 
+   function void start_of_simulation_phase(uvm_phase phase);
+      `uvm_info(get_type_name(), {"Simulation starts for: ", get_full_name()}, UVM_HIGH)
+   endfunction : start_of_simulation_phase
+
 endclass : yapp_env
