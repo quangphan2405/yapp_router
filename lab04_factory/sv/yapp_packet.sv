@@ -71,7 +71,7 @@ endclass: yapp_packet
 class short_yapp_packet extends yapp_packet;
 
    // Enable automation of the packet's fields
-   `uvm_object_utils_begin(yapp_packet)
+   `uvm_object_utils_begin(short_yapp_packet)
       `uvm_field_int(addr, UVM_ALL_ON)
       `uvm_field_int(length, UVM_ALL_ON)
       `uvm_field_array_int(payload, UVM_ALL_ON)
