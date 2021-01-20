@@ -62,3 +62,24 @@ class short_packet_test extends base_test;
    endfunction : build_phase
 
 endclass : short_packet_test
+
+class set_config_test extends base_test;
+
+   // UVM component utility macro
+   `uvm_component_utils(short_packet_test)
+
+   // Constructor
+   function new(string name, uvm_component parent);
+      super.new(name, parent);
+   endfunction : new
+
+   // Build_phase method
+   virtual function void build_phase(uvm_phase phase);
+      // Configure agent to be passive
+      uvm_config_int::set(this, "tb.yapp.tx_agent", "is_active", UVM_PASSIVE);
+      super.build_phase(phase);
+      uvm_config_wrapper::set(this, "tb.yapp.tx_agent.sequencer.run_phase",
+			      "default_sequence", yapp_5_packets::get_type());
+   endfunction : build_phase
+
+endclass : set_config_test
