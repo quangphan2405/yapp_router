@@ -65,3 +65,28 @@ class yapp_packet extends uvm_sequence_item;
    endfunction : post_randomize
 
 endclass: yapp_packet
+
+
+// Short packet class
+class short_yapp_packet extends yapp_packet;
+
+   // Enable automation of the packet's fields
+   `uvm_object_utils_begin(yapp_packet)
+      `uvm_field_int(addr, UVM_ALL_ON)
+      `uvm_field_int(length, UVM_ALL_ON)
+      `uvm_field_array_int(payload, UVM_ALL_ON)
+      `uvm_field_int(parity, UVM_ALL_ON + UVM_BIN)
+      `uvm_field_enum(parity_type_e, parity_type, UVM_ALL_ON)
+      `uvm_field_int(packet_delay, UVM_ALL_ON + UVM_NOCOMPARE)
+   `uvm_object_utils_end
+
+   // Constructor
+   function new(string name = "short_yapp_packet");
+      super.new(name);
+   endfunction : new
+
+   // New constraints
+   constraint short_length { length < 15; }
+   constraint not_valid_address { addr != 2; }
+
+endclass : short_yapp_packet
