@@ -15,7 +15,13 @@ Copyright Cadence Design Systems (c)2015
 //*** add incdir include directories here
 -incdir ../sv // include directory for sv files
 
+// set default timescale
+-timescale 1ns/1ns
+
 // compile files
 //*** add compile files here
 ../sv/yapp_pkg.sv // compile YAPP package
-top.sv // compile top level module
+../sv/yapp_if.sv  // compile YAPP interface
+clkgen.sv // compile clock generation
+hw_top.sv // compile hardware top level
+tb_top.sv // compile top level module
