@@ -145,6 +145,29 @@ class yapp_111_seq extends yapp_base_seq;
 
 endclass : yapp_111_seq
 
+class yapp_repeat_addr_seq extends yapp_base_seq;
+
+   // Required macro for sequences automation
+   `uvm_object_utils(yapp_reepat_addr_seq)
+
+   // Sequence property with constraint
+   rand bit [1:0] seqaddr;
+   constraint valid_address { seqaddr != 3; }
+
+   // Constructor
+   function new(string name="yapp_repeat_addr_seq");
+      super.new(name);
+   endfunction
+
+   // Sequence body definition
+   virtual task body();
+      `uvm_info(get_type_name(), "Executing yapp_repeat_addr_seq sequence", UVM_LOW)
+      repeat (2)
+	`uvm_do_with(req, { addr == seqaddr; })
+   endtask : body
+
+endclass : yapp_repeat_addr_seq
+
 
 
 
