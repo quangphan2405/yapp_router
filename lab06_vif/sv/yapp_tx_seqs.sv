@@ -98,7 +98,7 @@ class yapp_1_seq extends yapp_base_seq;
    // Sequence body definition
    virtual task body();
       `uvm_info(get_type_name(), "Executing yapp_1_seq sequence", UVM_LOW)
-      `uvm_do_with(req, { addr == 1; }) 
+      `uvm_do_with(req, { req.addr == 1; }) 
    endtask : body
 
 endclass : yapp_1_seq
@@ -116,9 +116,9 @@ class yapp_012_seq extends yapp_base_seq;
    // Sequence body definition
    virtual task body();
       `uvm_info(get_type_name(), "Executing yapp_012_seq sequence", UVM_LOW)
-      `uvm_do_with(req, { addr == 0; })
-      `uvm_do_with(req, { addr == 1; })
-      `uvm_do_with(req, { addr == 2; })
+      `uvm_do_with(req, { req.addr == 0; })
+      `uvm_do_with(req, { req.addr == 1; })
+      `uvm_do_with(req, { req.addr == 2; })
    endtask : body
 
 endclass : yapp_012_seq
@@ -163,7 +163,7 @@ class yapp_repeat_addr_seq extends yapp_base_seq;
    virtual task body();
       `uvm_info(get_type_name(), "Executing yapp_repeat_addr_seq sequence", UVM_LOW)
       repeat (2)
-	`uvm_do_with(req, { addr == seqaddr; })
+	`uvm_do_with(req, { req.addr == seqaddr; })
    endtask : body
 
 endclass : yapp_repeat_addr_seq
