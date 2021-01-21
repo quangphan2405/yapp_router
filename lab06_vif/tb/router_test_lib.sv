@@ -25,10 +25,10 @@ class base_test extends uvm_test;
    endfunction : end_of_elaboration_phase
 
    // Set drain time
-   function void run_phase(uvm_phase phase);
+   task run_phase(uvm_phase phase);
       uvm_objection obj = phase.get_objection();
       obj.set_drain_time(this, 200ns);
-   endfunction : run_phase
+   endtask : run_phase
    
    // Check configuration after run
    function void check_phase(uvm_phase phase);
