@@ -19,13 +19,14 @@ module tb_top;
 `include "router_tb.sv"
 
 // include the test library
-`include "router_test_lib.sv"
-
-   // set the interface
-   yapp_vif_config::set(null, "tb.yapp.agent.*", "vif", hw_top.in0);
+`include "router_test_lib.sv"   
    
 initial begin
+   // set the interface
+   yapp_vif_config::set(null, "uvm_test_top,tb.yapp.*", "vif", hw_top.in0);
+
+   // Start the test
    run_test("base_test");
 end
       
-endmodule : top
+endmodule : tb_top
