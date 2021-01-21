@@ -193,7 +193,35 @@ class yapp_incr_payload_seq extends yapp_base_seq;
 
 endclass : yapp_incr_payload_seq
 
+class yapp_exhaustive_seq extends yapp_base_seq;
 
+   // Required macro for sequences automation
+   `uvm_object_utils(yapp_exhaustive_seq)
+
+   // All user-defined class handles
+   yapp_1_seq            single_seq;
+   yapp_012_seq          incr_addr_seq;
+   yapp_111_seq          nested_seq;
+   yapp_repeat_addr_seq  same_addr_seq;
+   yapp_incr_payload_seq incr_payload_seq;
+   
+   
+   // Constructor
+   function new(string name="yapp_exhaustive_seq");
+      super.new(name);
+   endfunction
+
+   // Sequence body definition
+   virtual task body();
+      `uvm_do(single_seq)
+      `uvm_do(incr_addr_seq)
+      `uvm_do(nested_seq)
+      `uvm_do(same_addr_seq)
+      `uvm_do(incr_payload_seq)
+   endtask : body
+
+endclass : yapp_exhaustive_seq
+   
 
 
 
