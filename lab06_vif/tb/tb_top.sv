@@ -7,26 +7,27 @@ Copyright Cadence Design Systems (c)2015
 -----------------------------------------------------------------*/
 
 module tb_top;
-// import the UVM library
-// include the UVM macros
+   // import the UVM library
    import uvm_pkg::*;
+
+// include the UVM macros
 `include "uvm_macros.svh"   
 
-// import the YAPP package
+   // import the YAPP package
    import yapp_pkg::*;
 
 // include the testbench
 `include "router_tb.sv"
 
 // include the test library
-`include "router_test_lib.sv"   
+`include "router_test_lib.sv"
    
 initial begin
    // set the interface
-   yapp_vif_config::set(null, "uvm_test_top,tb.yapp.*", "vif", hw_top.in0);
+   yapp_vif_config::set(null, "*.tb.yapp.tx_agent.*", "vif", hw_top.in0);
 
    // Start the test
-   run_test("base_test");
+   run_test();
 end
       
 endmodule : tb_top
