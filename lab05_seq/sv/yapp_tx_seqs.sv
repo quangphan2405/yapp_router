@@ -148,7 +148,7 @@ endclass : yapp_111_seq
 class yapp_repeat_addr_seq extends yapp_base_seq;
 
    // Required macro for sequences automation
-   `uvm_object_utils(yapp_reepat_addr_seq)
+   `uvm_object_utils(yapp_repeat_addr_seq)
 
    // Sequence property with constraint
    rand bit [1:0] seqaddr;
