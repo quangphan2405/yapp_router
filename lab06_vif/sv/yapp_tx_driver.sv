@@ -1,7 +1,4 @@
-class yapp_tx_driver extends uvm_driver #(yapp_packet);
-
-   // UVM component macro
-   `uvm_component_utils(yapp_tx_driver)
+class yapp_tx_driver extends uvm_driver #(yapp_packet);   
 
    // Virtual interface
    virtual interface yapp_if vif;
@@ -9,14 +6,19 @@ class yapp_tx_driver extends uvm_driver #(yapp_packet);
    // Declare this property to count packets sent
    int 	   num_sent;
 
+   // UVM component macro
+   `uvm_component_utils_begin(yapp_tx_driver)
+      `uvm_field_int(num_sent, UVM_ALL_ON)
+   `uvm_component_utils_end
+
    function new(string name, uvm_component parent);
       super.new(name, parent);
    endfunction : new
 
    function void connect_phase(uvm_phase phase);
       // Get interface connection
-      if (!yapp_vif_config::set(this, "", "vif", vif))
-	`uvm_error("NOVIF", "vif not set")
+      if (!yapp_vif_config::get(this, "", "vif", vif))
+	`uvm_error("NOVIF", {"vif not set for: ", get_full_name(), ".vif"})
    endfunction : connect_phase
 
    function void start_of_simulation_phase(uvm_phase phase);
