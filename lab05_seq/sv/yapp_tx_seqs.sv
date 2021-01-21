@@ -168,6 +168,31 @@ class yapp_repeat_addr_seq extends yapp_base_seq;
 
 endclass : yapp_repeat_addr_seq
 
+class yapp_incr_payload_seq extends yapp_base_seq;
+
+   // Required macro for sequences automation
+   `uvm_object_utils(yapp_incr_payload_seq)   
+   
+   // Constructor
+   function new(string name="yapp_incr_payload_seq");
+      super.new(name);
+   endfunction
+
+   // Sequence body definition
+   virtual task body();
+      // Property for randomization
+      int ok;
+      `uvm_info(get_type_name(), "Executing yapp_incr_payload_seq sequence", UVM_LOW)
+      `uvm_create(req)
+      ok = req.randomize();
+      foreach ( req.payload[i] )
+	req.payload[i] = i;
+      req.set_parity();
+      `uvm_send(req)
+   endtask : body
+
+endclass : yapp_incr_payload_seq
+
 
 
 
