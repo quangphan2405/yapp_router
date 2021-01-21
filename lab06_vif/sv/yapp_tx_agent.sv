@@ -21,7 +21,7 @@ class yapp_tx_agent extends uvm_agent;
       end
    endfunction : build_phase
 
-   virtual function void connect_phase(uvm_phase phase);
+   function void connect_phase(uvm_phase phase);
       if ( is_active == UVM_ACTIVE )
 	driver.seq_item_port.connect(sequencer.seq_item_export);
    endfunction : connect_phase
@@ -29,5 +29,12 @@ class yapp_tx_agent extends uvm_agent;
    function void start_of_simulation_phase(uvm_phase phase);
       `uvm_info(get_type_name(), {"Simulation starts for: ", get_full_name()}, UVM_HIGH)
    endfunction : start_of_simulation_phase
+
+   // Assign the virtual interfaces of the agent's children
+  function void assign_vi(virtual interface yapp_if vif);
+    monitor.vif = vif;
+    if (is_active == UVM_ACTIVE) 
+      driver.vif = vif;
+  endfunction : assign_vi
 
 endclass : yapp_tx_agent
