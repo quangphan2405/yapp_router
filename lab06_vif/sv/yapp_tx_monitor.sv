@@ -1,7 +1,5 @@
 class yapp_tx_monitor extends uvm_monitor;
 
-   `uvm_component_utils(yapp_tx_monitor)
-
    // Virtual interface
    virtual interface yapp_if vif;
    
@@ -11,14 +9,19 @@ class yapp_tx_monitor extends uvm_monitor;
    // Count packets collected
    int num_pkt_col;
 
+   // UVM component macro
+   `uvm_component_utils_begin(yapp_tx_monitor)
+      `uvm_field_int(num_pkt_col, UVM_ALL_ON)
+   `uvm_component_utils_end
+
    function new(string name, uvm_component parent);
       super.new(name, parent);
    endfunction : new
 
    function void connect_phase(uvm_phase phase);
       // Get interface connection
-      if (!yapp_vif_config::set(this, "", "vif", vif))
-	`uvm_error("NOVIF", "vif not set")
+      if (!yapp_vif_config::get(this, get_full_name(), "vif", vif))
+	`uvm_error("NOVIF", {"vif not set for: ", get_full_name(), ".vif"})
    endfunction : connect_phase
    
    function void start_of_simulation_phase(uvm_phase phase);
