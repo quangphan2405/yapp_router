@@ -5,7 +5,7 @@ package yapp_pkg;
 `include "uvm_macros.svh"
 
    // Type for connecting interface
-   typedef uvm_config_db #(virtual yapp_if) yapp_vif_config;
+   typedef uvm_config_db#(virtual yapp_if) yapp_vif_config;
 
 // User-defined SV files
 `include "yapp_packet.sv"
