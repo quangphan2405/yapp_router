@@ -12,17 +12,16 @@ class base_test extends uvm_test;
    endfunction : new
 
    // Build_phase method
-   virtual function void build_phase(uvm_phase phase);
-      super.build_phase(phase);  
+   function void build_phase(uvm_phase phase);
       uvm_config_int::set(this, "*", "recording_detail", 1);
-      `uvm_info("BUILD", "Build phase of test is being executed", UVM_HIGH)      
+      super.build_phase(phase);
       tb = router_tb::type_id::create("tb", this);
    endfunction : build_phase
 
    // Print topology
    function void end_of_elaboration_phase(uvm_phase phase);
       uvm_top.print_topology();
-   endfunction : end_of_elaboration_phase
+   endfunction : end_of_elaboration_phase   
 
    // Set drain time
    task run_phase(uvm_phase phase);
@@ -141,11 +140,11 @@ class connection_test extends base_test;
    endfunction : new
 
    // Build_phase method
-   virtual function void build_phase(uvm_phase phase);
-      yapp_packet::type_id::set_type_override(short_yapp_packet::get_type()); 
+   virtual  function void build_phase(uvm_phase phase);
+      yapp_packet::type_id::set_type_override(short_yapp_packet::get_type());
       super.build_phase(phase);
       uvm_config_wrapper::set(this, "tb.yapp.tx_agent.sequencer.run_phase",
-			      "default_sequence", yapp_012_seq::get_type());     
+			      "default_sequence", yapp_012_seq::get_type());      
    endfunction : build_phase
 
 endclass : connection_test
