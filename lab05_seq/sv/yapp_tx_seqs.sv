@@ -121,7 +121,31 @@ class yapp_012_seq extends yapp_base_seq;
       `uvm_do_with(req, { addr == 2; })
    endtask : body
 
-endclass : yapp_012_seq 
+endclass : yapp_012_seq
+
+class yapp_111_seq extends yapp_base_seq;
+
+   // Required macro for sequences automation
+   `uvm_object_utils(yapp_111_seq)
+
+   // yapp_1_seq handle
+   yapp_1_seq single_seq;
+
+   // Constructor
+   function new(string name="yapp_111_seq");
+      super.new(name);
+   endfunction
+
+   // Sequence body definition
+   virtual task body();
+      `uvm_info(get_type_name(), "Executing yapp_111_seq sequence", UVM_LOW)
+      repeat (3)
+	`uvm_do(single_seq)
+   endtask : body
+
+endclass : yapp_111_seq
+
+
 
 
 
