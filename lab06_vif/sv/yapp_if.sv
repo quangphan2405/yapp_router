@@ -9,8 +9,8 @@ Copyright Cadence Design Systems (c)2015
 -----------------------------------------------------------------*/
 
 interface yapp_if (input clock, input reset );
-timeunit 1ns;
-timeprecision 100ps;
+//timeunit 1ns;
+//timeprecision 100ps;
 
 import uvm_pkg::*;
 `include "uvm_macros.svh"
