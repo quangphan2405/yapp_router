@@ -87,6 +87,6 @@ class short_yapp_packet extends yapp_packet;
 
    // New constraints
    constraint short_length { length < 15; }
-   constraint not_valid_address { addr != 2; }
+   // constraint not_valid_address { addr != 2; }
 
 endclass : short_yapp_packet
