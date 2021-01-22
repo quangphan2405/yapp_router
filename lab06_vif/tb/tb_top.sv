@@ -21,10 +21,13 @@ module tb_top;
 
 // include the test library
 `include "router_test_lib.sv"
-   
+
+   // Hardware top level
+   hw_top hardware();
+      
 initial begin
    // set the interface
-   yapp_vif_config::set(null, "*.tb.yapp.tx_agent.*", "vif", hw_top.in0);
+   yapp_vif_config::set(null, "*.tb.yapp.tx_agent.*", "vif", hardware.in0);
 
    // Start the test
    run_test();
