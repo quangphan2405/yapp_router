@@ -33,9 +33,9 @@ module hw_top;
 		   .error(),
 
 		   // YAPP interface
-		   .in_data(in0.data),
-		   .in_data_vld(in0.data_vld),
-		   .in_suspend(in0.data_suspend),
+		   .in_data(in0.in_data),
+		   .in_data_vld(in0.in_data_vld),
+		   .in_suspend(in0.in_suspend),
 
 		   // Output Channels
 		   //Channel 0
