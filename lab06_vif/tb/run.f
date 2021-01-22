@@ -23,5 +23,6 @@ Copyright Cadence Design Systems (c)2015
 ../sv/yapp_pkg.sv // compile YAPP package
 ../sv/yapp_if.sv  // compile YAPP interface
 clkgen.sv // compile clock generation
+../../router_rtl/yapp_router.sv // compile yapp router
 hw_top.sv // compile hardware top level
 tb_top.sv // compile top level module
