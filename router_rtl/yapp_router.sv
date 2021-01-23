@@ -102,7 +102,7 @@ Copyright Cadence Design Systems (c)2014
 // error is asserted if parity error is detected at the end of packet reception 
 //
 //****************************************************************************/
-`timescale 1ns/100ps 
+//`timescale 1ns/100ps 
   
 typedef struct packed {
 //typedef struct packed {
