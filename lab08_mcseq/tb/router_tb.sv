@@ -15,7 +15,10 @@ class router_tb extends uvm_env;
 
    // Clock and Reset UVC environment handle
    clock_and_reset_env clk_rst;
-            
+
+   // Multichannel sequencer handle
+   router_mcsequencer mcseqr;
+               
    function new(string name, uvm_component parent);
       super.new(name, parent);
    endfunction : new
@@ -41,7 +44,15 @@ class router_tb extends uvm_env;
       uvm_config_int::set(this, "hbus", "num_masters", 1);
       uvm_config_int::set(this, "hbus", "num_slaves", 0);
       // Create HBUS UVC instance
-      hbus = hbus_env::type_id::create("hbus", this);   
+      hbus = hbus_env::type_id::create("hbus", this);
+
+      // Create multichannel sequencer instance
+      mcseqr = router_mcsequencer::type_id::create("mcseqr", this);      
    endfunction : build_phase
 
+   virtual function void connect_phase(uvm_phase phase);
+      mcseqr.yapp_seqr = yapp.tx_agent.sequencer;
+      mcseqr.hbus_seqr = hbus.masters[0].sequencer;
+   endfunction : connect_phase
+   
 endclass : router_tb
