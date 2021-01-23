@@ -221,8 +221,40 @@ class yapp_exhaustive_seq extends yapp_base_seq;
    endtask : body
 
 endclass : yapp_exhaustive_seq
+
+
+class yapp_4_channel_seq extends yapp_base_seq;
+
+   // Required macro for sequences automation
+   `uvm_object_utils(yapp_4_channel_seq)   
    
-
-
-
+   // Constructor
+   function new(string name="yapp_4_channel_seq");
+      super.new(name);
+   endfunction
    
+   // Sequence body definition
+   virtual task body();
+      `uvm_info(get_type_name(), "Executing yapp_4_channel_seq sequence", UVM_LOW)
+      `uvm_create(req)
+      req.packet_delay = 1;
+      // 4 channels      
+      for (int add=0; add<4; add++) begin
+	req.addr = add;
+      	// 22 payload variances
+	for (int lgt=1; lgt<=22; lgt++) begin	   
+	   req.length = lgt;
+	   req.payload = new[lgt];
+	   for (int pld=0; pld<lgt; pld++)
+	     req.payload[pld] = pld;
+	   randcase
+	     20: req.parity_type = BAD_PARITY;
+	     80: req.parity_type = GOOD_PARITY;
+	   endcase 
+	   req.set_parity();
+	   `uvm_send(req)
+	end 
+      end   
+   endtask : body
+
+endclass : yapp_4_channel_seq
