@@ -36,18 +36,8 @@ class base_test extends uvm_test;
    
 endclass : base_test
 
-
-class test2 extends base_test;
-
-   `uvm_component_utils(test2)
-
-   function new(string name, uvm_component parent);
-      super.new(name, parent);
-   endfunction : new
-
-endclass : test2
-
-
+// Exclude other test classes besides base_test and simple_test
+/* -----\/----- EXCLUDED -----\/-----
 class short_packet_test extends base_test;
 
    // UVM component utility macro
@@ -67,6 +57,7 @@ class short_packet_test extends base_test;
    endfunction : build_phase
 
 endclass : short_packet_test
+
 
 class set_config_test extends base_test;
 
@@ -88,6 +79,7 @@ class set_config_test extends base_test;
    endfunction : build_phase
 
 endclass : set_config_test
+ 
 
 class incr_payload_test extends base_test;
 
@@ -109,6 +101,7 @@ class incr_payload_test extends base_test;
 
 endclass : incr_payload_test
 
+
 class exhaustive_seq_test extends base_test;
    
    // UVM component utility macro
@@ -129,6 +122,7 @@ class exhaustive_seq_test extends base_test;
 
 endclass : exhaustive_seq_test
 
+
 class connection_test extends base_test;
    
    // UVM component utility macro
@@ -148,3 +142,29 @@ class connection_test extends base_test;
    endfunction : build_phase
 
 endclass : connection_test
+ -----/\----- EXCLUDED -----/\----- */
+
+
+class simple_test extends base_test;
+   
+   // UVM component utility macro
+   `uvm_component_utils(simple_test)
+
+   // Constructor
+   function new(string name, uvm_component parent);
+      super.new(name, parent);
+   endfunction : new
+
+   // Build_phase method
+   virtual  function void build_phase(uvm_phase phase);
+      yapp_packet::type_id::set_type_override(short_yapp_packet::get_type());
+      super.build_phase(phase);
+      uvm_config_wrapper::set(this, "tb.yapp.tx_agent.sequencer.run_phase",
+			      "default_sequence", yapp_012_seq::get_type());
+      uvm_config_wrapper::set(this, "tb.chan?.rx_agent.sequencer.run_phase",
+			      "default_sequence", channel_rx_resp_seq::get_type());
+      uvm_config_wrapper::set(this, "tb.clk_rst.agent.sequencer.run_phase",
+			      "default_sequence", clk10_rst5_seq::get_type());
+   endfunction : build_phase
+
+endclass : simple_test
