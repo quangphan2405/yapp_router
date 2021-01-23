@@ -181,7 +181,7 @@ class test_uvc_integration extends base_test;
    endfunction : new
 
    // Build_phase method
-   virtual  function void build_phase(uvm_phase phase);
+   virtual function void build_phase(uvm_phase phase);
       yapp_packet::type_id::set_type_override(short_yapp_packet::get_type());
       super.build_phase(phase);
       uvm_config_wrapper::set(this, "tb.clk_rst.agent.sequencer.run_phase",
@@ -196,4 +196,27 @@ class test_uvc_integration extends base_test;
    endfunction : build_phase
 
 endclass : test_uvc_integration
-   
+
+
+class multichannel_test extends base_test;
+
+   // UVM component utility macro
+   `uvm_component_utils(multichannel_test)
+
+   // Constructor
+   function new(string name, uvm_component parent);
+      super.new(name, parent);
+   endfunction : new
+
+   virtual function void build_phase(uvm_phase phase);
+      yapp_packet::type_id::set_type_override(short_yapp_packet::get_type());
+      super.build_phase(phase);
+      uvm_config_wrapper::set(this, "tb.clk_rst.agent.sequencer.run_phase",
+			      "default_sequence", clk10_rst5_seq::get_type());
+      uvm_config_wrapper::set(this, "tb.chan?.rx_agent.sequencer.run_phase",
+			      "default_sequence", channel_rx_resp_seq::get_type());
+      uvm_config_wrapper::set(this, "tb.mcseqr.run_phase",
+			      "default_sequence", router_simple_mcseq::get_type());
+   endfunction : build_phase   
+
+endclass : multichannel_test
