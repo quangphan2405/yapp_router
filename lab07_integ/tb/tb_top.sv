@@ -16,6 +16,15 @@ module tb_top;
    // import the YAPP package
    import yapp_pkg::*;
 
+   // import the channel package
+   import channel_pkg::*;
+
+   // import the HBUS package
+   import hbus_pkg::*;
+
+   // import the clock_and_reset package
+   import clock_and_reset_pkg::*;
+   
 // include the testbench
 `include "router_tb.sv"
 
@@ -26,9 +35,20 @@ module tb_top;
    hw_top hardware();
       
 initial begin
-   // set the interface
-   yapp_vif_config::set(null, "*.tb.yapp.tx_agent.*", "vif", hardware.in0);
+   // set the yapp interface
+   yapp_vif_config::set(null, "*.tb.yapp.tx_agent.*", "vif", hardware.yapp_in0);
 
+   // set the channel interface
+   channel_vif_config::set(null, "*.tb.chan0.*", "vif", hardware.chan_in0);
+   channel_vif_config::set(null, "*.tb.chan1.*", "vif", hardware.chan_in1);
+   channel_vif_config::set(null, "*.tb.chan2.*", "vif", hardware.chan_in2);
+
+   // set the HBUS interface
+   hbus_vif_config::set(null, "*.tb.hbus.*", "vif", hardware.hbus_in0);
+
+   // set the clock_and_reset interface
+   clock_and_reset_vif_config::set(null, "*.tb.clk_rst.*", "vif", hardware.clk_rst_in0);
+   
    // Start the test
    run_test();
 end
