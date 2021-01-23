@@ -12,4 +12,4 @@ class router_mcsequencer extends uvm_sequencer;
       super.new(name, parent);
    endfunction : new
 
-endclass : router_mcsequencer.sv
+endclass : router_mcsequencer
