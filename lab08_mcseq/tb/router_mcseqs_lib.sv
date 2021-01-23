@@ -34,7 +34,7 @@ class router_simple_mcseq extends uvm_sequence;
       end
    endtask : pre_body
 
-   task body(uvm_phase phase);
+   task body();
       `uvm_info(get_type_name(), "Executing router_simple_mcseq sequence", UVM_LOW)
 
       // Set router to accept small packets and check the setting
