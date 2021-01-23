@@ -22,28 +22,26 @@ class router_tb extends uvm_env;
 
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
+      // Create clock_and_reset UVC instance
+      clk_rst = hbus_env::type_id::create("clk_rst", this);
+      
       // Create YAPP UVC instance
       yapp = yapp_env::type_id::create("yapp", this);
 
+      // Configuration set channel_id of channels
+      uvm_config_int::set(this, "chan0", "channel_id", 0);
+      uvm_config_int::set(this, "chan1", "channel_id", 1);
+      uvm_config_int::set(this, "chan2", "channel_id", 2);
       // Create channel UVC instances
       chan0 = channel_env::type_id::create("chan0", this);
       chan1 = channel_env::type_id::create("chan1", this);
       chan2 = channel_env::type_id::create("chan2", this);
 
-      // Create HBUS UVC instance
-      hbus = hbus_env::type_id::create("hbus", this);
-
-      // Create clock_and_reset UVC instance
-      clk_rst = hbus_env::type_id::create("clk_rst", this);
-      
-      // Configuration set channel_id of channels
-      uvm_config_int::set(this, "chan0", "channel_id", 0);
-      uvm_config_int::set(this, "chan1", "channel_id", 1);
-      uvm_config_int::set(this, "chan2", "channel_id", 2);
-
       // Configuration set num_masters and num_slaves of hbus
       uvm_config_int::set(this, "hbus", "num_masters", 1);
       uvm_config_int::set(this, "hbus", "num_slaves", 0);
+      // Create HBUS UVC instance
+      hbus = hbus_env::type_id::create("hbus", this);   
    endfunction : build_phase
 
 endclass : router_tb
