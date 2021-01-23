@@ -193,6 +193,31 @@ class yapp_incr_payload_seq extends yapp_base_seq;
 
 endclass : yapp_incr_payload_seq
 
+
+class yapp_rnd_seq extends yapp_base_seq;
+   
+   // Required macro for sequences automation
+   `uvm_object_utils(yapp_rnd_seq)
+
+   // Rand property
+   rand int count;
+
+   constraint count_limit { count >= 1 && count <= 10; }
+   
+   // Constructor
+   function new(string name="yapp_rnd_seq");
+      super.new(name);
+   endfunction
+
+   virtual task body();
+      `uvm_info(get_type_name(), $sformatf("Executing yapp_rnd_seq sequence with %0d packets", count), UVM_LOW)
+      repeat (count)
+	`uvm_do(req)
+   endtask : body
+
+endclass : yapp_rnd_seq
+
+
 class yapp_exhaustive_seq extends yapp_base_seq;
 
    // Required macro for sequences automation
