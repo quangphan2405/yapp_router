@@ -23,7 +23,7 @@ class router_tb extends uvm_env;
    function void build_phase(uvm_phase phase);
       super.build_phase(phase);
       // Create clock_and_reset UVC instance
-      clk_rst = hbus_env::type_id::create("clk_rst", this);
+      clk_rst = clock_and_reset_env::type_id::create("clk_rst", this);
       
       // Create YAPP UVC instance
       yapp = yapp_env::type_id::create("yapp", this);
