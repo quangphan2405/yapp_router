@@ -24,6 +24,12 @@ module tb_top;
 
    // import the clock_and_reset package
    import clock_and_reset_pkg::*;
+
+// include the mc sequencer
+`include "router_mcsequencer.sv"
+
+// include the mc sequence
+`include "router_mcseqs_lib.sv"   
    
 // include the testbench
 `include "router_tb.sv"
