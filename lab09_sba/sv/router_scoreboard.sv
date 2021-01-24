@@ -21,8 +21,14 @@ class router_scoreboard extends uvm_scoreboard;
    [yapp_packet] sb_queue1 [$];
    [yapp_packet] sb_queue2 [$];
 
+   // Counter for received, dropped, wrong and matched packets
+   int 	     received_in, dropped_in;
+   int 	     received_ch0, failed_ch0, matched_ch0, dropped_ch0;
+   int 	     received_ch1, failed_ch1, matched_ch1, dropped_ch1;
+   int 	     received_ch2, failed_ch2, matched_ch2, dropped_ch2;
+
    // Comparer policy
-   comp_t comparer_policy;
+   comp_t comparer_policy = UVM;
       
    // Constructor
    function new(string name, uvm_component parent);
@@ -69,32 +75,119 @@ class router_scoreboard extends uvm_scoreboard;
       comp_uvm &= comparer.compare_field("parity", yp.parity, cp.parity, 8);
    endfunction : comp_uvm
 
-   function void write_yapp(input yapp_packet yapp_pkt);
-      yapp_packet yp;
+   virtual function void write_yapp(input yapp_packet yp);
+      received_in++;      
+      yapp_packet yapp_pkt;
       // Clone YAPP packet
       $cast(yp, yapp_pkt.clone());
       case (yp.addr)
 	2'b00: begin
-	   sb_queue0.push_back(yp);
+	   sb_queue0.push_back(yapp_pkt);
 	   `uvm_info(get_type_name(), "Added packet to Scoreboard Queue 0", UVM_HIGH)
 	end
 	2'b01: begin
-	   sb_queue1.push_back(yp);
+	   sb_queue1.push_back(yapp_pkt);
 	   `uvm_info(get_type_name(), "Added packet to Scoreboard Queue 1", UVM_HIGH)
 	end
 	2'b10: begin
-	   sb_queue2.push_back(yp);
+	   sb_queue2.push_back(yapp_pkt);
 	   `uvm_info(get_type_name(), "Added packet to Scoreboard Queue 2", UVM_HIGH)
 	end
 	default: begin
+	   dropped_in++;	   
 	   `uvm_info(get_type_name(), "Packet dropped due to illegal address", UVM_HIGH)
 	end
       endcase // case (yp.addr)
    endfunction : write_yapp
 
-   
-	
-	
+   virtual function void write_chan0(input channel_packet cp);
+      received_ch0++;
+      yapp_packet yp;      
+      bit compare;
+      if (sb_queue0.size()) begin 
+	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: 
+                   Channel 0 received UNEXPECTED packet: \n%s", cp.sprint()))
+	 dropped_ch0++;
+      end
 
+      if (comparer_policy == UVM)
+	compare = comp_uvm(sb.queue0[0], cp);
+      else
+	compare = comp_equal(sb.queue0[0], cp);
+
+      if (compare) begin
+	 void'sb_queue0.pop_front();
+	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match:
+                   Channel 0 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
+	 matched_ch0++;
+      end
+      else begin
+	 yp = sb.queue0[0];
+	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]:
+                     Channel 0 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
+		     yp.sprint(), cp.sprint()))
+	 failed_ch0++;
+      end 
+   endfunction : write_chan0
    
-   
+   virtual function void write_chan1(input channel_packet cp);
+      received_ch1++;
+      yapp_packet yp;      
+      bit compare;
+      if (sb_queue1.size()) begin 
+	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: 
+                   Channel 1 received UNEXPECTED packet: \n%s", cp.sprint()))
+	 dropped_ch1++;
+      end
+
+      if (comparer_policy == UVM)
+	compare = comp_uvm(sb.queue1[0], cp);
+      else
+	compare = comp_equal(sb.queue1[0], cp);
+
+      if (compare) begin
+	 void'sb_queue1.pop_front();
+	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match:
+                   Channel 1 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
+	 matched_ch1++;
+      end
+      else begin
+	 yp = sb.queue1[0];
+	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]:
+                     Channel 1 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
+		     yp.sprint(), cp.sprint()))
+	 failed_ch1++;
+      end 
+   endfunction : write_chan1
+
+   virtual function void write_chan2(input channel_packet cp);
+      received_ch2++;
+      yapp_packet yp;      
+      bit compare;
+      if (sb_queue2.size()) begin 
+	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: 
+                   Channel 2 received UNEXPECTED packet: \n%s", cp.sprint()))
+	 dropped_ch2++;
+      end
+
+      if (comparer_policy == UVM)
+	compare = comp_uvm(sb.queue2[0], cp);
+      else
+	compare = comp_equal(sb.queue2[0], cp);
+
+      if (compare) begin
+	 void'sb_queue2.pop_front();
+	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match:
+                   Channel 2 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
+	 matched_ch2++;
+      end
+      else begin
+	 yp = sb.queue2[0];
+	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]:
+                     Channel 2 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
+		     yp.sprint(), cp.sprint()))
+	 failed_ch2++;
+      end 
+   endfunction : write_chan2
+		   
+		  
