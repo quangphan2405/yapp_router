@@ -11,16 +11,20 @@ Copyright Cadence Design Systems (c)2015
 
  -uvmhome $UVMHOME
 
+// options
++UVM_VERBOSITY=UVM_LOW
++UVM_TESTNAME=multichannel_test
+
 // include directories
 //*** add incdir include directories here
-// -incdir ../sv // include directory for sv files
+-incdir ../sv // include directory for sv files
 -incdir ../../yapp/sv            // incude directory for YAPP UVC
 -incdir ../../channel/sv         // include directory for channel UVC
 -incdir ../../hbus/sv            // include directory for HBUS UVC
 -incdir ../../clock_and_reset/sv // include directory for clock_and_reset UVC
 
 // set default timescale
--timescale 1ns/1ns
+-timescale 1ns/100ps
 
 // compile files
 //*** add compile files here
