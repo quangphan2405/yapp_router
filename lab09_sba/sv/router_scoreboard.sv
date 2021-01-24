@@ -1,34 +1,36 @@
 typedef enum bit {EQUALITY, UVM} comp_t;
 
-class router_scoreboard extends uvm_scoreboard;
+class router_scoreboard extends uvm_scoreboard;   
+   
+   // Comparer policy
+   comp_t comparer_policy = UVM;
 
    // UVM component utility macro
-   `uvm_component_utils(router_scoreboard)
+   `uvm_component_utils_begin(router_scoreboard)
+      `uvm_field_enum(comp_t, comparer_policy, UVM_ALL_ON)
+   `uvm_component_utils_end   
 
    // Analysis imp objects
    `uvm_analysis_imp_decl(_yapp)
    `uvm_analysis_imp_decl(_chan0)
    `uvm_analysis_imp_decl(_chan1)
    `uvm_analysis_imp_decl(_chan2)
-
+   
    uvm_analysis_imp_yapp #(yapp_packet, router_scoreboard) sb_yapp_in;
    uvm_analysis_imp_chan0 #(channel_packet, router_scoreboard) sb_chan0_in;
    uvm_analysis_imp_chan1 #(channel_packet, router_scoreboard) sb_chan1_in;
    uvm_analysis_imp_chan2 #(channel_packet, router_scoreboard) sb_chan2_in;
 
    // Queues for each channel
-   [yapp_packet] sb_queue0 [$];
-   [yapp_packet] sb_queue1 [$];
-   [yapp_packet] sb_queue2 [$];
+   yapp_packet sb_queue0[$];
+   yapp_packet sb_queue1[$];
+   yapp_packet sb_queue2[$];
 
    // Counter for received, dropped, wrong and matched packets
    int 	     received_in, dropped_in;
    int 	     received_ch0, failed_ch0, matched_ch0, dropped_ch0;
    int 	     received_ch1, failed_ch1, matched_ch1, dropped_ch1;
-   int 	     received_ch2, failed_ch2, matched_ch2, dropped_ch2;
-
-   // Comparer policy
-   comp_t comparer_policy = UVM;
+   int 	     received_ch2, failed_ch2, matched_ch2, dropped_ch2;   
       
    // Constructor
    function new(string name, uvm_component parent);
@@ -79,8 +81,8 @@ class router_scoreboard extends uvm_scoreboard;
       received_in++;      
       yapp_packet yapp_pkt;
       // Clone YAPP packet
-      $cast(yp, yapp_pkt.clone());
-      case (yp.addr)
+      $cast(yapp_pkt, yp.clone());
+      case (yapp_pkt.addr)
 	2'b00: begin
 	   sb_queue0.push_back(yapp_pkt);
 	   `uvm_info(get_type_name(), "Added packet to Scoreboard Queue 0", UVM_HIGH)
@@ -97,7 +99,7 @@ class router_scoreboard extends uvm_scoreboard;
 	   dropped_in++;	   
 	   `uvm_info(get_type_name(), "Packet dropped due to illegal address", UVM_HIGH)
 	end
-      endcase // case (yp.addr)
+      endcase // case (yapp_pkt.addr)
    endfunction : write_yapp
 
    virtual function void write_chan0(input channel_packet cp);
