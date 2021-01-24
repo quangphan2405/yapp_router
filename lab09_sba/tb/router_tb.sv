@@ -18,7 +18,10 @@ class router_tb extends uvm_env;
 
    // Multichannel sequencer handle
    router_mcsequencer mcseqr;
-               
+
+   // Scoreboard
+   router_scoreboard sb;
+                  
    function new(string name, uvm_component parent);
       super.new(name, parent);
    endfunction : new
@@ -47,12 +50,22 @@ class router_tb extends uvm_env;
       hbus = hbus_env::type_id::create("hbus", this);
 
       // Create multichannel sequencer instance
-      mcseqr = router_mcsequencer::type_id::create("mcseqr", this);      
+      mcseqr = router_mcsequencer::type_id::create("mcseqr", this);   
+
+      // Create scorebaord instance
+      sb = router_scoreboard::type_id::create("sb", this);
    endfunction : build_phase
 
    virtual function void connect_phase(uvm_phase phase);
+      // Multichannel sequencer
       mcseqr.yapp_seqr = yapp.tx_agent.sequencer;
       mcseqr.hbus_seqr = hbus.masters[0].sequencer;
+
+      // Scoreboard
+      yapp.agent.monitor.item_collected_port.connect(sb.sb_yapp_in);
+      chan0.rx_agent.monitor.item_colleted_port.connect(sb.sb_chan0_in);
+      chan1.rx_agent.monitor.item_colleted_port.connect(sb.sb_chan1_in);
+      chan2.rx_agent.monitor.item_colleted_port.connect(sb.sb_chan2_in);
    endfunction : connect_phase
    
 endclass : router_tb
