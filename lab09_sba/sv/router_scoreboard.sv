@@ -105,8 +105,7 @@ class router_scoreboard extends uvm_scoreboard;
       yapp_packet yp;      
       bit compare;
       if (sb_queue0.size()) begin 
-	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: 
-                   Channel 0 received UNEXPECTED packet: \n%s", cp.sprint()))
+	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: Channel 0 received UNEXPECTED packet: \n%s", cp.sprint()))
 	 dropped_ch0++;
       end
 
@@ -117,15 +116,13 @@ class router_scoreboard extends uvm_scoreboard;
 
       if (compare) begin
 	 void'sb_queue0.pop_front();
-	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match:
-                   Channel 0 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
+	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match: Channel 0 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
 	 matched_ch0++;
       end
       else begin
 	 yp = sb.queue0[0];
-	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]:
-                     Channel 0 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
-		     yp.sprint(), cp.sprint()))
+	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]: Channel 0 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
+						yp.sprint(), cp.sprint()))
 	 failed_ch0++;
       end 
    endfunction : write_chan0
@@ -135,8 +132,7 @@ class router_scoreboard extends uvm_scoreboard;
       yapp_packet yp;      
       bit compare;
       if (sb_queue1.size()) begin 
-	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: 
-                   Channel 1 received UNEXPECTED packet: \n%s", cp.sprint()))
+	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: Channel 1 received UNEXPECTED packet: \n%s", cp.sprint()))
 	 dropped_ch1++;
       end
 
@@ -147,15 +143,13 @@ class router_scoreboard extends uvm_scoreboard;
 
       if (compare) begin
 	 void'sb_queue1.pop_front();
-	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match:
-                   Channel 1 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
+	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match: Channel 1 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
 	 matched_ch1++;
       end
       else begin
 	 yp = sb.queue1[0];
-	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]:
-                     Channel 1 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
-		     yp.sprint(), cp.sprint()))
+	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]: Channel 1 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
+						yp.sprint(), cp.sprint()))
 	 failed_ch1++;
       end 
    endfunction : write_chan1
@@ -165,8 +159,7 @@ class router_scoreboard extends uvm_scoreboard;
       yapp_packet yp;      
       bit compare;
       if (sb_queue2.size()) begin 
-	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: 
-                   Channel 2 received UNEXPECTED packet: \n%s", cp.sprint()))
+	`uvm_error(get_type_name(), $sformatf("Scoreboard Error [EMPTY]: Channel 2 received UNEXPECTED packet: \n%s", cp.sprint()))
 	 dropped_ch2++;
       end
 
@@ -177,17 +170,32 @@ class router_scoreboard extends uvm_scoreboard;
 
       if (compare) begin
 	 void'sb_queue2.pop_front();
-	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match:
-                   Channel 2 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
+	 `uvm_info(get_type_name(), $sformatf("Scoreboard Compare Match: Channel 2 received CORRECT packet: \n%s", cp.sprint()), UVM_HIGH)
 	 matched_ch2++;
       end
       else begin
 	 yp = sb.queue2[0];
-	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]:
-                     Channel 2 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
-		     yp.sprint(), cp.sprint()))
+	 `uvm_waring(get_type_name(), $sformatf("Scoreboard Error [MISMATCH]: Channel 2 received WRONG packet: \nExpected:\n%s\nGot:\n%s",
+						yp.sprint(), cp.sprint()))
 	 failed_ch2++;
       end 
    endfunction : write_chan2
-		   
-		  
+
+   function void check_phase(uvm_phase phase);
+      `uvm_info(get_type_name(), "Checking Router Scoreboard", UVM_LOW)
+      if (sb_queue0.size() || sb_queue1.size() || sb_queue(3).size())
+	`uvm_warning(get_type_name(), $sformatf("Router Scoreboard Not Empty:\nChannel 0: %0d\nChannel 1: %0d\nChannel 2: %0d",
+		     sb_queue0.size(), sb_queue1.size(), sb_queue2.size()))
+      else
+	`uvm_info(get_type_name(), "Router Scoreboard Empty", UVM_LOW)
+   endfunction : check_phase
+
+   function void report_phase(uvm_phase phase);
+      `uvm_info(get_type_name(), $sformatf("Router Scoreboard Statistics:\nChannel \t Received \t Failed \t Matched\n chan0  \t %0d \t %0d \t %0d\n chan1  \t %0d \t %0d \t %0d\n chan2  \t %0d \t %0d \t %0d",	received_ch0, failed_ch0, matched_ch0, received_ch1, failed_ch1, matched_ch1, received_ch2, failed_ch2, matched_ch2), UVM_LOW)
+      if ((dropped_ch0 + dropped_ch1 + dropped_ch2 + failed_ch0 + failed_ch1 + failed_ch2) > 0)
+	`uvm_error(get_type_name(), "Simulation FAILED!")
+      else
+	`uvm_info(get_type_name(), "Simulation PASSED!", UVM_NONE)
+   endfunction : report_phase
+
+endclass : router_scoreboard
