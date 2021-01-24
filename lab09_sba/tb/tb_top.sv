@@ -37,6 +37,9 @@ module tb_top;
 // include the test library
 `include "router_test_lib.sv"
 
+// include the scoreboard
+`include "router_scoreboard.sv"
+   
    // Hardware top level
    hw_top hardware();
       
