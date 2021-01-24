@@ -29,16 +29,16 @@ module tb_top;
 `include "router_mcsequencer.sv"
 
 // include the mc sequence
-`include "router_mcseqs_lib.sv"   
+`include "router_mcseqs_lib.sv"
+
+// include the scoreboard
+`include "router_scoreboard.sv"   
    
 // include the testbench
 `include "router_tb.sv"
 
 // include the test library
 `include "router_test_lib.sv"
-
-// include the scoreboard
-`include "router_scoreboard.sv"
    
    // Hardware top level
    hw_top hardware();
